@@ -6,15 +6,6 @@ const db = mongoose();
 const app = express();
 
 const studentSchema = require("./graphql/index").studentSchema;
-app.use(
-  "/graphql",
-  cors(),
-  graphqlHTTP({
-    schema: studentSchema,
-    rootValue: global,
-    graphiql: true
-  })
-);
 
 // Enable CORS
 app.use(function(req, res, next) {
@@ -34,6 +25,16 @@ app.use(function(req, res, next) {
     next();
   }
 });
+
+app.use(
+  "/graphql",
+  cors(),
+  graphqlHTTP({
+    schema: studentSchema,
+    rootValue: global,
+    graphiql: true
+  })
+);
 
 // Up and Running at Port 4000
 app.listen(process.env.PORT || 4000, () => {
